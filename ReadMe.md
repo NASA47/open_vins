@@ -1,3 +1,18 @@
+# Install as in instructions
+https://docs.openvins.com/dev-docker.html#dev-docker-openvins
+
+```bash
+ov_docker ov_ros1_20_04 roscore
+ov_docker ov_ros1_20_04 rosrun rviz rviz -d /catkin_ws/src/open_vins/ov_msckf/launch/display.rviz
+```
+```bash
+ov_docker ov_ros1_20_04 bash
+cd catkin_ws
+source devel/setup.bash
+rosrun ov_eval plot_trajectories none src/open_vins/ov_data/sim/udel_gore.txt
+roslaunch ov_msckf simulation.launch
+```
+
 # OpenVINS
 
 [![ROS 1 Workflow](https://github.com/rpng/open_vins/actions/workflows/build_ros1.yml/badge.svg)](https://github.com/rpng/open_vins/actions/workflows/build_ros1.yml)
