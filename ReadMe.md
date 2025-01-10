@@ -2,15 +2,39 @@
 https://docs.openvins.com/dev-docker.html#dev-docker-openvins
 
 ```bash
-ov_docker ov_ros1_20_04 roscore
-ov_docker ov_ros1_20_04 rosrun rviz rviz -d /catkin_ws/src/open_vins/ov_msckf/launch/display.rviz
+mkdir -p catkin_ws_ov/src
+cd catkin_ws_ov/src/
+ln -s ../../research-odometry/open_vins open_vins
+
+cd ~/research-odometry/open_vins
+export VERSION=ros1_20_04
+docker build -t ov_$VERSION -f Dockerfile .
+
+sudo nano ~/.bashrc # add to the bashrc file
+
+export DOCKER_CATKINWS=/home/pi/catkin_ws_ov
+export DOCKER_DATASETS=/home/pi/datasets
+alias ov_docker="docker run -it --rm --privileged -e DISPLAY=$DISPLAY  --net=host \
+      -v '/tmp/.X11-unix:/tmp/.X11-unix:rw'  -v /home/pi/.Xauthority:/root/.Xauthority:ro \
+      -v /home/pi/flash4logs:/workspace/flash4logs \
+    --mount type=bind,source=/home/pi,target=/workspace \
+    --mount type=bind,source=$DOCKER_DATASETS,target=/datasets $1"
+source ~/.bashrc
 ```
+
 ```bash
 ov_docker ov_ros1_20_04 bash
-cd catkin_ws
-source devel/setup.bash
-rosrun ov_eval plot_trajectories none src/open_vins/ov_data/sim/udel_gore.txt
+tmux
+
+source /opt/ros/noetic/setup.bash; source /catkin_ws/devel/setup.bash; roscore
+source /opt/ros/noetic/setup.bash; source /catkin_ws/devel/setup.bash; rosrun rviz rviz -d /catkin_ws/src/open_vins/ov_msckf/launch/display.rviz
+source /opt/ros/noetic/setup.bash; source /catkin_ws/devel/setup.bash; rosrun ov_eval plot_trajectories none src/open_vins/ov_data/sim/udel_gore.txt
+
+source /opt/ros/noetic/setup.bash; source /catkin_ws/devel/setup.bash; rosbag play V1_01_easy.bag
+source /opt/ros/noetic/setup.bash; source /catkin_ws/devel/setup.bash; roslaunch ov_msckf subscribe.launch config:=euroc_mav
+source /opt/ros/noetic/setup.bash; source /catkin_ws/devel/setup.bash; roslaunch ov_msckf subscribe.launch config:=devkit
 roslaunch ov_msckf simulation.launch
+# Commit the docker container
 ```
 
 # OpenVINS
