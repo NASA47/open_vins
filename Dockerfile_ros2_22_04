@@ -1,4 +1,5 @@
-FROM osrf/ros:humble-desktop
+# FROM ros:humble
+FROM realsense
 
 # =========================================================
 # =========================================================
@@ -13,7 +14,7 @@ FROM osrf/ros:humble-desktop
 
 # Dependencies we use, catkin tools is very good build system
 # Also some helper utilities for fast in terminal edits (nano etc)
-RUN apt-get update && apt-get install -y libeigen3-dev nano git
+RUN apt-get update && apt-get install -y libeigen3-dev nano git tmux
 
 # Ceres solver install and setup
 RUN sudo apt-get install -y cmake libgoogle-glog-dev libgflags-dev libatlas-base-dev libeigen3-dev libsuitesparse-dev libceres-dev

@@ -1,6 +1,42 @@
 # Install as in instructions
 https://docs.openvins.com/dev-docker.html#dev-docker-openvins
 
+ROS2
+```bash
+cd ~/research-odometry/open_vins
+export VERSION=ros2_22_04
+docker build -t ov_ros2_22_04 -f Dockerfile_ros2_22_04 .
+
+docker run -it --rm --privileged -e DISPLAY=$DISPLAY  --net=host \
+      -v '/tmp/.X11-unix:/tmp/.X11-unix:rw'  -v /home/pi/.Xauthority:/root/.Xauthority:ro \
+      -v ~/workspace/:/workspace/ \
+    --mount type=bind,source=/home/scout-mp2nela5/workspace/datasets,target=/datasets ov_ros2_22_04 /bin/bash
+# First run
+mkdir -p ros2_ws/src
+ln -s /workspace/research-odometry/open_vins /ros2_ws/src/open_vins
+cd ros2_ws/
+colcon build --event-handlers console_cohesion+
+source /ros2_ws/install/setup.bash
+
+
+docker commit 361e787f34e2 ov_ros2_22_04
+
+# Ordinary runs
+ros2 launch ov_msckf subscribe.launch.py \
+  config:=rs_custom verbosity:=DEBUG use_stereo:=false \
+  max_cameras:=1 \
+  calib_cam_extrinsics:=true \
+  calib_cam_intrinsics:=true \
+  calib_cam_timeoffset:=true \
+  calib_imu_intrinsics:=true \
+  calib_imu_g_sensitivity:=true
+
+ros2 launch ov_msckf subscribe.launch.py   config:=rs_custom verbosity:=INFO use_stereo:=true   max_cameras:=2   calib_cam_extrinsics:=true   calib_cam_intrinsics:=true   calib_cam_timeoffset:=true   calib_imu_intrinsics:=false   calib_imu_g_sensitivity:=false
+
+ros2 run rviz2 rviz2 -d /ros2_ws/src/open_vins/ov_msckf/launch/display_ros2.rviz
+```
+
+ROS1
 ```bash
 mkdir -p catkin_ws_ov/src
 cd catkin_ws_ov/src/

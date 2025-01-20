@@ -1,0 +1,125 @@
+%YAML:1.0
+imu0:
+  T_i_b:
+    - [1.0, 0.0, 0.0, 0.0]
+    - [0.0, 1.0, 0.0, 0.0]
+    - [0.0, 0.0, 1.0, 0.0]
+    - [0.0, 0.0, 0.0, 1.0]
+  # Values from allan plots
+  # https://github.com/rpng/ar_table_dataset
+  #accelerometer_noise_density: 0.0010382453726199955
+  #accelerometer_random_walk: 4.132785219723178e-05
+  #gyroscope_noise_density: 0.00010272083263292572
+  #gyroscope_random_walk: 1.1106223553679963e-06
+  # Inflated values (to account for unmodelled effects)
+  #  - white noise multiplied by 2
+  #  - bias random walk multiplied by 10
+  accelerometer_noise_density: 0.00207649074
+  accelerometer_random_walk: 0.00041327852
+  gyroscope_noise_density: 0.00020544166
+  gyroscope_random_walk: 0.00001110622
+  rostopic: /camera/d455/imu
+  time_offset: 0.0
+  update_rate: 200
+  # three different modes supported:
+  # "calibrated" (same as "kalibr"), "kalibr", "rpng"
+  model: "kalibr"
+  # how to get from Kalibr imu.yaml result file:
+  #   - Tw is imu0:gyroscopes:M:
+  #   - R_IMUtoGYRO: is imu0:gyroscopes:C_gyro_i:
+  #   - Ta is imu0:accelerometers:M:
+  #   - R_IMUtoACC not used by Kalibr
+  #   - Tg is imu0:gyroscopes:A:
+  Tw:
+    - [0.9952025401238055, 0.0, 0.0]
+    - [0.0004570213037819419, 0.9944280937672445, 0.0]
+    - [0.000857414914339091, 0.001223324248586737, 0.9956232749587183]
+  R_IMUtoGYRO:
+    - [0.9999951908746233, -0.00012946166150878632, 0.003098623453168793]
+    - [9.313933248037185e-05, 0.999931321597297, 0.011719360637344287]
+    - [-0.0030999278525593818, -0.011719015673749607, 0.9999265248601759]
+  Ta:
+    - [0.9883109117798143, 0.0, 0.0]
+    - [0.0013049487861747948, 0.9903432694935471, 0.0]
+    - [-0.0022880703265846544, -0.008138608920719272, 0.9936923195786318]
+  R_IMUtoACC:
+    - [ 1.0, 0.0, 0.0 ]
+    - [ 0.0, 1.0, 0.0 ]
+    - [ 0.0, 0.0, 1.0 ]
+  Tg:
+    - [1.6284988882086455e-05, -9.006609318068641e-06, -1.2889468438095928e-05]
+    - [0.00010481126209161434, -2.995834876487031e-05, -0.00021570009316696873]
+    - [4.560357266277035e-05, 1.3355887848905728e-05, -5.992238741616541e-05]
+
+  # Tw:
+  #   - [ 1.0, 0.0, 0.0 ]
+  #   - [ 0.0, 1.0, 0.0 ]
+  #   - [ 0.0, 0.0, 1.0 ]
+  # R_IMUtoGYRO:
+  #   - [ 1.0, 0.0, 0.0 ]
+  #   - [ 0.0, 1.0, 0.0 ]
+  #   - [ 0.0, 0.0, 1.0 ]
+  # Ta:
+  #   - [ 1.0, 0.0, 0.0 ]
+  #   - [ 0.0, 1.0, 0.0 ]
+  #   - [ 0.0, 0.0, 1.0 ]
+  # R_IMUtoACC:
+  #   - [ 1.0, 0.0, 0.0 ]
+  #   - [ 0.0, 1.0, 0.0 ]
+  #   - [ 0.0, 0.0, 1.0 ]
+  # Tg:
+  #   - [ 0.0, 0.0, 0.0 ]
+  #   - [ 0.0, 0.0, 0.0 ]
+  #   - [ 0.0, 0.0, 0.0 ]
+
+# imu0:
+#   T_i_b:
+#     - [1.0, 0.0, 0.0, 0.0]
+#     - [0.0, 1.0, 0.0, 0.0]
+#     - [0.0, 0.0, 1.0, 0.0]
+#     - [0.0, 0.0, 0.0, 1.0]
+#   # Values from allan plots
+#   # https://github.com/rpng/ar_table_dataset
+#   #accelerometer_noise_density: 0.0010382453726199955
+#   #accelerometer_random_walk: 4.132785219723178e-05
+#   #gyroscope_noise_density: 0.00010272083263292572
+#   #gyroscope_random_walk: 1.1106223553679963e-06
+#   # Inflated values (to account for unmodelled effects)
+#   #  - white noise multiplied by 2
+#   #  - bias random walk multiplied by 10
+#   accelerometer_noise_density: 0.007
+#   accelerometer_random_walk: 0.0006
+#   gyroscope_noise_density: 0.0005
+#   gyroscope_random_walk: 4.0e-05
+#   rostopic: /camera/d455/imu
+#   time_offset: 0.0 #027751247526161117
+#   update_rate: 250
+#   # three different modes supported:
+#   # "calibrated" (same as "kalibr"), "kalibr", "rpng"
+#   model: "kalibr"
+#   # how to get from Kalibr imu.yaml result file:
+#   #   - Tw is imu0:gyroscopes:M:
+#   #   - R_IMUtoGYRO: is imu0:gyroscopes:C_gyro_i:
+#   #   - Ta is imu0:accelerometers:M:
+#   #   - R_IMUtoACC not used by Kalibr
+#   #   - Tg is imu0:gyroscopes:A:
+#   # Tw:
+#   #   - [0.9952025401238055, 0.0, 0.0]
+#   #   - [0.0004570213037819419, 0.9944280937672445, 0.0]
+#   #   - [0.000857414914339091, 0.001223324248586737, 0.9956232749587183]
+#   # R_IMUtoGYRO:
+#   #   - [0.9999951908746233, -0.00012946166150878632, 0.003098623453168793]
+#   #   - [9.313933248037185e-05, 0.999931321597297, 0.011719360637344287]
+#   #   - [-0.0030999278525593818, -0.011719015673749607, 0.9999265248601759]
+#   # Ta:
+#   #   - [0.9883109117798143, 0.0, 0.0]
+#   #   - [0.0013049487861747948, 0.9903432694935471, 0.0]
+#   #   - [-0.0022880703265846544, -0.008138608920719272, 0.9936923195786318]
+#   # R_IMUtoACC:
+#   #   - [ 1.0, 0.0, 0.0 ]
+#   #   - [ 0.0, 1.0, 0.0 ]
+#   #   - [ 0.0, 0.0, 1.0 ]
+#   # Tg:
+#   #   - [1.6284988882086455e-05, -9.006609318068641e-06, -1.2889468438095928e-05]
+#   #   - [0.00010481126209161434, -2.995834876487031e-05, -0.00021570009316696873]
+#   #   - [4.560357266277035e-05, 1.3355887848905728e-05, -5.992238741616541e-05]
